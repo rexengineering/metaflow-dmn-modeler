@@ -27,7 +27,7 @@ function createPanel(
     getWebviewOptions(context, uri)
   );
 
-  panel.webview.html = provider.provideContent();
+  panel.webview.html = provider.provideContent(uri, panel.webview);
 
   return { panel, resource: uri, provider };
 }
@@ -41,9 +41,7 @@ function refresh(
     provider
   } = editor;
 
-  // panel.webview.html = provider.provideContent(resource, panel.webview);
-  panel.webview.html = provider.provideContent();
-
+  panel.webview.html = provider.provideContent(resource, panel.webview);
 }
 
 export interface DmnEditorPanel {
