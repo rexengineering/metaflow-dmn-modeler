@@ -25,6 +25,11 @@ export class EditingProvider {
         const builder = new DmnModelerBuilder(contents, {
             modelerDistro: this.getUri(webview, 'node_modules', 'dmn-js', 'dist', 'dmn-modeler.development.js'),
             diagramStyles: this.getUri(webview, 'node_modules', 'dmn-js', 'dist', 'assets', 'diagram-js.css'),
+            decisionControlStyles: this.getUri(webview, 'node_modules', 'dmn-js', 'dist', 'assets', 'dmn-js-decision-table-controls.css'),
+            decisionTableStyles: this.getUri(webview, 'node_modules', 'dmn-js', 'dist', 'assets', 'dmn-js-decision-table.css'),
+            drdStyles: this.getUri(webview, 'node_modules', 'dmn-js', 'dist', 'assets', 'dmn-js-drd.css'),
+            literalExpressionStyles: this.getUri(webview, 'node_modules', 'dmn-js', 'dist', 'assets', 'dmn-js-literal-expression.css'),
+            sharedStyles: this.getUri(webview, 'node_modules', 'dmn-js', 'dist', 'assets', 'dmn-js-shared.css'),
             dmnFont: this.getUri(webview, 'node_modules', 'dmn-js', 'dist', 'assets', 'dmn-font', 'css', 'dmn.css'),
             modelerStyles: this.getUri(webview, 'out', 'assets', 'modeler.css'),
             resourceUri: localResource

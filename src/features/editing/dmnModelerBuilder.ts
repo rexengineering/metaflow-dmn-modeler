@@ -28,6 +28,11 @@ export class DmnModelerBuilder {
 
             <!-- required modeler styles -->
             <link rel="stylesheet" href="${this.resources.diagramStyles}">
+            <link rel="stylesheet" href="${this.resources.decisionControlStyles}">
+            <link rel="stylesheet" href="${this.resources.decisionTableStyles}">
+            <link rel="stylesheet" href="${this.resources.drdStyles}">
+            <link rel="stylesheet" href="${this.resources.literalExpressionStyles}">
+            <link rel="stylesheet" href="${this.resources.sharedStyles}">
             <link rel="stylesheet" href="${this.resources.dmnFont}">
 
             <link rel="stylesheet" href="${this.resources.modelerStyles}">
