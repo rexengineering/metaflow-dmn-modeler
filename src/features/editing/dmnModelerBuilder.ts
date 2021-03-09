@@ -45,6 +45,9 @@ export class DmnModelerBuilder {
               .djs-popup {
                 color: black;
               }
+              .dmn-js-parent {
+                color: black;
+              }
             </style>
           </head>`;
 
