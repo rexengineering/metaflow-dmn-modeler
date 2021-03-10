@@ -4,6 +4,8 @@ import { ExtensionContext, Uri, window, workspace } from 'vscode';
 
 import * as path from 'path';
 
+const fs = require('fs');
+
 export function getPanelTitle(
   uri: Uri,
 ): string {
@@ -24,6 +26,12 @@ export function getDocumentUri(uri?: Uri) {
   const activeEditor = window.activeTextEditor;
 
   return uri || activeEditor?.document.uri;
+}
+
+export function saveFile(uri: Uri, content: String) {
+  const { fsPath: docPath } = uri.with({ scheme: 'vscode-resource' });
+
+  fs.writeFileSync(docPath, content, { ecoding: 'utf8' });
 }
 
 function getLocalResourceRoots(

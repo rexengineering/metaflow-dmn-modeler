@@ -79,45 +79,42 @@ export class DmnModelerBuilder {
 
           // (3) bootstrap modeler instance
           const dmnModeler = new DmnJS({
-            container: '#canvas',
-            keyboard: { bindTo: document }
+            container: '#canvas'
           });
           
-
-          // keyboardBindings();
-
           /**
            * Open diagram in our modeler instance.
            *
-           * @param {String} bpmnXML diagram to display
+           * @param {String} dmnXML diagram to display
            */
-          async function openDiagram(bpmnXML) {
+          async function openDiagram(dmnXML) {
 
             // import diagram
-            try {
-              await dmnModeler.importXML(bpmnXML);
-            } catch (err) {
-              const {
-                warnings
-              } = err;
-
-              return console.error('could not import BPMN 2.0 diagram', err, warnings);
-            }
+            await dmnModeler.importXML(dmnXML, (err) => {
+              if (!err) {
+                keyboardBindings();
+              }
+              else {
+                const {
+                  warnings
+                } = err;
+  
+                return console.error('could not import DMN 1.3 diagram', err, warnings);
+              }
+            });
           }
 
-          async function saveDiagramChanges() {
-            try {
-              const {
-                xml
-              } = await dmnModeler.saveXML({ format: true });
+          async function saveDiagramChanges() {            
+            await dmnModeler.saveXML({ format: true }, (err, xml) => {
+              if(err) {
+                return console.error('could not save DMN 1.3 diagram', err);
+              }
 
               return vscode.postMessage({
                 command: 'saveContent',
                 content: xml
               });
-            } catch (err) {
-              return console.error('could not save BPMN 2.0 diagram', err);
-            }
+            });
           }
 
           async function saveChanges() {
@@ -132,7 +129,9 @@ export class DmnModelerBuilder {
           }
 
           function keyboardBindings() {
-            const keyboard = dmnModeler.get('keyboard');
+            const viewer = dmnModeler.getActiveViewer();
+            const keyboard = viewer.get('keyboard');
+            keyboard.bind(document);
 
             keyboard.addListener(function(context) {
 

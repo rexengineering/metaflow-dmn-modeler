@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { getDocumentUri, getPanelTitle, getWebviewOptions } from './helpers';
+import { getDocumentUri, getPanelTitle, getWebviewOptions, saveFile } from './helpers';
 
 import { EditingProvider } from './features/editing';
 
@@ -55,6 +55,19 @@ export function activate(context: vscode.ExtensionContext) {
   const openedPanels: DmnEditorPanel[] = [];
   const editingProvider = new EditingProvider(context);
 
+  const _registerMessageReceiver = (panel: vscode.WebviewPanel, uri: vscode.Uri) => {
+    panel.webview.onDidReceiveMessage(
+      message => {
+        switch (message.command) {
+          case 'saveContent':
+            return saveFile(uri, message.content);
+        }
+      },
+      undefined,
+      context.subscriptions
+    );
+  };
+
   const _revealIfAlreadyOpened = (
     uri: vscode.Uri,
     provider: EditingProvider
@@ -87,6 +100,8 @@ export function activate(context: vscode.ExtensionContext) {
     editorPanel.panel.onDidChangeViewState(() => {
       refresh(editorPanel);
     });
+
+    _registerMessageReceiver(editorPanel.panel, editorPanel.resource);
 
     openedPanels.push(editorPanel);
   };
