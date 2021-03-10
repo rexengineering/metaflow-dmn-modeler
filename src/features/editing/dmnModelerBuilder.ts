@@ -66,7 +66,7 @@ export class DmnModelerBuilder {
           const vscode = acquireVsCodeApi();
 
           // (1) persist web view state
-          // vscode.setState({ resourcePath: '${this.resources.resourceUri}'});
+          vscode.setState({ resourcePath: '${this.resources.resourceUri}'});
 
           // (2) react on messages from outside
           window.addEventListener('message', (event) => {

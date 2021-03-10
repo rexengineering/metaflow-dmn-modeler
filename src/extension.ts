@@ -107,10 +107,34 @@ export function activate(context: vscode.ExtensionContext) {
         return panel;
       }
     });  
+  };
 
+  const _serializePanel = (
+    provider: EditingProvider
+  ): void => {
+    const viewType = editingType;
+
+    if (vscode.window.registerWebviewPanelSerializer) {
+      vscode.window.registerWebviewPanelSerializer(viewType, {
+        async deserializeWebviewPanel(panel: vscode.WebviewPanel, state: any) {
+          if (!state || !state.resourcePath) {
+            return;
+          }
+
+          const resource = vscode.Uri.parse(state.resourcePath);
+
+          panel.title = panel.title || getPanelTitle(resource);
+          panel.webview.options = getWebviewOptions(context, resource);
+          panel.webview.html = provider.provideContent(resource, panel.webview);
+
+          _registerPanel({ panel, resource, provider });
+        }
+      });
+    }
   };
 
   _registerCommands();
+  _serializePanel(editingProvider);
 }
 
 // this method is called when your extension is deactivated
