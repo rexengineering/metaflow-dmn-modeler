@@ -1,70 +1,33 @@
-# vs-code-dmn-modeler README
+# rexflow-dmn-modeler README
 
-This is the README for your extension "vs-code-dmn-modeler". After writing up a brief description, we recommend including the following sections.
+Display and edit DMN diagrams in VS Code using [bpmn.io](https://bpmn.io/) tools.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+* Open DMN 1.3 (`.dmn`) in a Modeler to make changes to your diagrams
+  * From the editor toolbar
+  * Via the command palette ("Open DMN Modeler")
+  * Via keyboard shortcut (`CTRL/CMD + SHIFT + V`)
+* Save changes to your local file
 
-For example if there is an image subfolder under your extension project workspace:
+## How to get it
 
-\!\[feature X\]\(images/feature-x.png\)
+Install the `.vsix` package using the following command.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+```sh
+$ code --install-extension ./rexflow-dmn-modeler-[VERSION].vsix
+```
 
-## Requirements
+## Development Setup
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+First step, clone this project to your local machine.
 
-## Extension Settings
+```sh
+$ git clone https://bitbucket.org/rexdev/rexflow-dmn-modeler/
+$ cd ./rexflow-dmn-modeler
+$ npm install
+$ npm run compile
+$ code .
+```
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Press `F5` to load and debug the extension in a new VS Code instance.

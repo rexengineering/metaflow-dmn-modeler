@@ -1,8 +1,10 @@
 {
-  "name": "vs-code-dmn-modeler",
-  "displayName": "vs-code-dmn-modeler",
-  "description": "",
-  "version": "0.0.1",
+  "name": "rexflow-dmn-modeler",
+  "displayName": "rexflow-dmn-modeler",
+  "description": "VS Code Extension for Displaying and Editing DMN 1.3 Files, based on bbpmn.io",
+  "version": "0.1.0",
+  "publisher": "rex",
+  "repository": "https://bitbucket.org/rexdev/rexflow-dmn-modeler/",
   "engines": {
     "vscode": "^1.54.0"
   },
@@ -31,11 +33,32 @@
     "commands": [
       {
         "command": "extension.dmn-modeler.edit",
-        "title": "Edit DMN diagram",
+        "title": "Open DMN Modeler",
         "icon": "$(editor-layout)"
       }
     ],
+    "keybindings": [
+      {
+        "command": "extension.dmn-modeler.edit",
+        "key": "shift+ctrl+v",
+        "mac": "shift+cmd+v",
+        "when": "editorTextFocus && resourceLangId == dmn"
+      }
+    ],
     "menus": {
+      "commandPalette": [
+        {
+          "when": "resourceLangId == dmn",
+          "command": "extension.dmn-modeler.edit"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "resourceLangId == dmn",
+          "command": "extension.dmn-modeler.edit",
+          "group": "navigation"
+        }
+      ],
       "editor/title": [
         {
           "when": "resourceLangId == dmn",
