@@ -4,9 +4,14 @@ import { getDocumentUri, getPanelTitle, getWebviewOptions, saveFile } from './he
 
 import { EditingProvider } from './features/editing';
 
+import * as path from 'path';
+
+const fs = require('fs');
+
 const editingType = 'dmn-modeler.editing';
 
 const COMMANDS = {
+  NEW_CMD: 'extension.dmn-modeler.new',
   EDIT_CMD: 'extension.dmn-modeler.edit'
 };
 
@@ -107,9 +112,53 @@ export function activate(context: vscode.ExtensionContext) {
   };
   
   const _registerCommands = (): void => {
-    const { 
+    const {
+      NEW_CMD, 
       EDIT_CMD 
     } = COMMANDS;
+
+    vscode.commands.registerCommand(NEW_CMD, (uri: vscode.Uri) => {
+      const sourceUri = vscode.Uri.file(path.join(context.extensionPath, 'resources', 'dmn', 'diagram_new.dmn'));
+
+      if (uri) {
+        vscode.window.showInputBox({
+          prompt: "New DMN diagram name?",
+          placeHolder: "diagram_new"
+        }).then(
+          (name) => {
+            if (name != undefined) {
+              const newFileUri = vscode.Uri.file(path.join(uri.fsPath, name + '.dmn'));
+
+              vscode.workspace.fs.copy(sourceUri, newFileUri)
+              .then(
+                () => {},
+                (e) => { 
+                  if(e.code == vscode.FileSystemError.FileExists.name) {
+                    vscode.window.showErrorMessage('Could not create new file: file already exists');
+                  }
+                  else {
+                    vscode.window.showErrorMessage(e.message);
+                  }
+                }
+              );
+            }
+          }
+        );
+      }
+      else {
+        vscode.commands.executeCommand('workbench.action.files.newUntitledFile').then(
+          () => {
+            const editor = vscode.window.activeTextEditor;
+            if (editor) {
+              const content = fs.readFileSync(sourceUri.fsPath, { encoding: 'utf8' });
+              editor.edit(editBuilder => {
+                editBuilder.insert(new vscode.Position(0, 0), content);
+              });
+            }
+          }
+        );
+      }
+    });
 
     vscode.commands.registerCommand(EDIT_CMD, (uri: vscode.Uri) => {
       const documentUri = getDocumentUri(uri);

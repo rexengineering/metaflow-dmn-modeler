@@ -32,6 +32,10 @@
     ],
     "commands": [
       {
+        "command": "extension.dmn-modeler.new",
+        "title": "New DMN diagram"
+      },
+      {
         "command": "extension.dmn-modeler.edit",
         "title": "Open DMN Modeler",
         "icon": "$(editor-layout)"
@@ -48,11 +52,19 @@
     "menus": {
       "commandPalette": [
         {
+          "command": "extension.dmn-modeler.new"
+        },
+        {
           "when": "resourceLangId == dmn",
           "command": "extension.dmn-modeler.edit"
         }
       ],
       "explorer/context": [
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "extension.dmn-modeler.new",
+          "group": "navigation@11"
+        },
         {
           "when": "resourceLangId == dmn",
           "command": "extension.dmn-modeler.edit",
