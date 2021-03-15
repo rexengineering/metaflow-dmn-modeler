@@ -72,6 +72,11 @@
           "group": "navigation"
         }
       ],
+      "view/title": [
+        {
+          "command": "extension.dmn-modeler.new"
+        }
+      ],
       "editor/title": [
         {
           "when": "resourceLangId == dmn",
