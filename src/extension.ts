@@ -127,7 +127,10 @@ export function activate(context: vscode.ExtensionContext) {
         }).then(
           (name) => {
             if (name != undefined) {
-              const newFileUri = vscode.Uri.file(path.join(uri.fsPath, name + '.dmn'));
+              if (!name.includes('.dmn')) {
+                name = name + '.dmn';
+              }
+              const newFileUri = vscode.Uri.file(path.join(uri.fsPath, name));
 
               vscode.workspace.fs.copy(sourceUri, newFileUri)
               .then(
