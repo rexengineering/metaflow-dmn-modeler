@@ -13,6 +13,7 @@
   ],
   "activationEvents": [
     "onLanguage:dmn",
+    "onCommand:extension.dmn-modeler.new",
     "onCommand:extension.dmn-modeler.edit",
     "onWebviewPanel:dmn-modeler.editing"
   ],
